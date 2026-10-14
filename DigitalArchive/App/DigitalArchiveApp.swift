@@ -40,7 +40,9 @@ struct DigitalArchiveApp: App {
                     // Clean up and merge any duplicate tags on launch
                     ArchiveTag.deduplicate(in: sharedModelContainer.mainContext)
                     
-                    if CommandLine.arguments.contains("-generateSamples") {
+                    let descriptor = FetchDescriptor<ArchiveItem>()
+                    let count = (try? sharedModelContainer.mainContext.fetchCount(descriptor)) ?? 0
+                    if count == 0 || CommandLine.arguments.contains("-generateSamples") {
                         try? await SampleDataGenerator.shared.generateAndImportSampleData(modelContext: sharedModelContainer.mainContext)
                     }
                 }

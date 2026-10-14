@@ -269,6 +269,16 @@ public struct ArchiveListView: View {
                     }
 
                     FilterChip(
+                        title: "Audio",
+                        isSelected: viewModel.selectedCategory == .audio
+                    ) {
+                        withAnimation(.spring()) {
+                            viewModel.selectedCategory = .audio
+                            viewModel.selectedStatus = nil
+                        }
+                    }
+
+                    FilterChip(
                         title: "Missing",
                         isSelected: viewModel.selectedStatus == .missing
                     ) {
